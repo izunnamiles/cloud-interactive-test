@@ -18,7 +18,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::all();
         return response()->json([
           'invoice_count' => $invoice->count(),
-          'total_invoice_amount' => $invoice->sum('invoice_amount'),
+          'total_invoice_amount' => '$'.$invoice->sum('invoice_amount'),
           'data' => InvoiceResource::collection($invoice), 
         ],200);
     }
@@ -26,19 +26,22 @@ class InvoiceController extends Controller
     public function store(InvoiceRequest $request)
     {
         //
+        $ref = 'REF'.time();
         $taxed = $this->calculateTax($request->invoice_amount);
 
         $invoice = new Invoice;
-        $invoice->invoice = $request->invoice;
+        $invoice->invoice_name = $request->invoice_name;
         $invoice->invoice_amount = $request->invoice_amount;
-        $invoice->invoice = $taxed;
+        $invoice->amount_taxed = $taxed;
+        $invoice->reference = $ref;
         $invoice->save();
 
         return InvoiceResource::collection($invoice);
 
     }
 
-    private function calculateTax($amount){
+    private function calculateTax($amount)
+    {
         $tax = 0.05;
         $deduct = $amount * $tax;
         return $deduct;
