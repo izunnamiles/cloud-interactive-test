@@ -15,8 +15,11 @@ class InvoiceResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'invoice_name' => $this->invoice_name,
             'invoice_amount' => $this->invoice_amount,
             'amount_taxed' => $this->amount_taxed,
+            'reference' => $this->reference,
+            'date_added' => date('Y-m-d', strtotime($this->created_at))
         ];
     }
 }

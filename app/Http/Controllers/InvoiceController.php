@@ -36,7 +36,10 @@ class InvoiceController extends Controller
         $invoice->reference = $ref;
         $invoice->save();
 
-        return InvoiceResource::collection($invoice);
+        return response([
+            'status' => 200,
+            'message' => "new record added"
+        ]);
 
     }
 
