@@ -24,8 +24,12 @@ class InvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'invoice_amount' => 'required|numeric',
-            'invoice_name' => 'required'
+            'data.invoice_number' => 'required|numeric',
+            'data.invoice_name' => 'required',
+            'data.products' => 'required|array',
+            'data.products.*.price' => 'required|numeric',
+            'data.products.*.quantity' => 'required|numeric',
+            'data.products.*.product_name' => 'required'
         ];
     }
 }

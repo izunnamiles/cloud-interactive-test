@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Invoice extends Model
+class Product extends Model
 {
     //
     protected $guarded = [];
 
-    public function products(){
-        return $this->hasMany(Product::class);
+    public function invoice(){
+        return $this->belongsTo(Invoice::class);
     }
 }

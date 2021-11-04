@@ -22,3 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/invoice', [InvoiceController::class,'index']);
 
 Route::post('/invoice', [InvoiceController::class, 'store']);
+
+Route::get('/{invoice}/products', [InvoiceController::class, 'displayProducts'])->name('products.index');

@@ -16,10 +16,14 @@ class InvoiceResource extends JsonResource
     {
         return [
             'invoice_name' => $this->invoice_name,
+            'invoice_number' => $this->invoice_number,
             'invoice_amount' => $this->invoice_amount,
             'amount_taxed' => $this->amount_taxed,
             'reference' => $this->reference,
-            'date_added' => date('Y-m-d', strtotime($this->created_at))
+            'date_added' => date('Y-m-d', strtotime($this->created_at)),
+            'link' => [
+                'products' => route('products.index',$this->id),
+            ]
         ];
     }
 }
